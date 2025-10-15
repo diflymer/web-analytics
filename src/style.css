@@ -600,6 +600,31 @@ footer::before {
   filter: brightness(1.2) saturate(1.2);
 }
 
+/* Header social links */
+.header-social-link {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 8px;
+  border-radius: 12px;
+  display: inline-block;
+  background: rgba(79, 70, 229, 0.1);
+  border: 1px solid rgba(79, 70, 229, 0.2);
+}
+
+.header-social-link:hover {
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.3);
+  border-color: transparent;
+}
+
+.header-social-link:hover img {
+  filter: brightness(1.2) saturate(1.2);
+}
+
+.header-social-link img {
+  transition: all 0.3s ease;
+}
+
 
 /* Section Divider */
 .section-divider {

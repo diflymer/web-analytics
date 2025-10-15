@@ -54,11 +54,11 @@ function renderHeader() {
     // Add social links for variant B
     const socialLinksHTML = `
       <div class="header-social-links d-none d-md-flex align-items-center me-3">
-        <a href="https://vk.com/dkulyaev" class="text-decoration-none me-2" target="_blank" title="VK">
+        <a href="https://vk.com/dkulyaev" class="text-decoration-none me-2 header-social-link" target="_blank" title="VK">
           <img src="/vk.svg" width="24" height="24" alt="VK">
         </a>
-        <a href="https://t.me/diflymer" class="text-decoration-none" target="_blank" title="Telegram">
-          <img src="/telegram.svg" width="24" height="24" alt="Telegram" style="filter: brightness(0) invert(1);">
+        <a href="https://t.me/diflymer" class="text-decoration-none header-social-link" target="_blank" title="Telegram">
+          <img src="/telegram.svg" width="24" height="24" alt="Telegram">
         </a>
       </div>`;
 
