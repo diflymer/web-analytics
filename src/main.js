@@ -41,20 +41,40 @@ function initVarioqubFlags() {
 
 // Function to render header with or without social links
 function renderHeader() {
-  const headerSocialLinks = isHeaderLinks ? `
-      <div class="d-none d-md-flex align-items-center">
+  const navRightSection = document.getElementById('nav-right-section');
+  if (!navRightSection) return;
+
+  // Clear existing social links (if any)
+  const existingSocialLinks = navRightSection.querySelector('.header-social-links');
+  if (existingSocialLinks) {
+    existingSocialLinks.remove();
+  }
+
+  if (isHeaderLinks) {
+    // Add social links for variant B
+    const socialLinksHTML = `
+      <div class="header-social-links d-none d-md-flex align-items-center me-3">
         <a href="https://vk.com/dkulyaev" class="text-decoration-none me-2" target="_blank" title="VK">
           <img src="/vk.svg" width="24" height="24" alt="VK">
         </a>
         <a href="https://t.me/diflymer" class="text-decoration-none" target="_blank" title="Telegram">
           <img src="/telegram.svg" width="24" height="24" alt="Telegram" style="filter: brightness(0) invert(1);">
         </a>
-      </div>` : '';
+      </div>`;
 
-  const headerHTML = `
+    // Insert social links before the dropdown
+    const dropdown = navRightSection.querySelector('.dropdown');
+    if (dropdown) {
+      dropdown.insertAdjacentHTML('beforebegin', socialLinksHTML);
+    }
+  }
+}
+
+// Create HTML content with imported assets
+const htmlContent = `
   <!-- Navigation -->
   <div class="tabs-to-dropdown mb-5">
-    <div class="nav-wrapper d-flex justify-content-between align-items-center">
+    <div class="nav-wrapper d-flex justify-content-between align-items-center" id="nav-wrapper">
       <ul class="nav nav-pills d-none d-md-flex" id="pills-tab" role="tablist">
         <li class="nav-item" role="presentation">
           <a class="nav-link active" id="pills-company-tab" href="#main" role="tab" aria-controls="pills-company" aria-selected="true">Главная</a>
@@ -70,10 +90,8 @@ function renderHeader() {
         </li>
       </ul>
 
-      <div class="d-flex align-items-center">
-        ${headerSocialLinks}
-
-        <div class="dropdown ms-3">
+      <div class="d-flex align-items-center" id="nav-right-section">
+        <div class="dropdown">
           <ul class="nav nav-pills d-flex d-md-none">
             <button class="btn dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
               <img id="menu-spin" src="` + menuIcon + `" height="40" alt="Menu">
@@ -89,17 +107,7 @@ function renderHeader() {
       </div>
 
     </div>
-  </div>`;
-
-  // Replace existing header or insert at the beginning
-  const existingHeader = document.querySelector('.tabs-to-dropdown');
-  if (existingHeader) {
-    existingHeader.outerHTML = headerHTML;
-  }
-}
-
-// Create HTML content with imported assets
-const htmlContent = `
+  </div>
 
   <!-- Main Content -->
   <div class="container-fluid">
