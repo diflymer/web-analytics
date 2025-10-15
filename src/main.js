@@ -53,7 +53,7 @@ function renderHeader() {
   if (isHeaderLinks) {
     // Add social links for variant B
     const socialLinksHTML = `
-      <div class="header-social-links d-none d-md-flex align-items-center me-3">
+      <div class="header-social-links d-flex align-items-center me-3">
         <a href="https://vk.com/dkulyaev" class="text-decoration-none me-2 header-social-link" target="_blank" title="VK">
           <img src="/vk.svg" width="24" height="24" alt="VK">
         </a>
