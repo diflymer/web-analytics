@@ -1,5 +1,9 @@
 import './style.css'
 
+// Import assets
+import menuIcon from './assets/menu.png'
+import danilMainImg from './assets/danilMain.png'
+
 // Smooth scrolling for navigation links
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -16,7 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-document.querySelector('#app').innerHTML = `
+// Create HTML content with imported assets
+const htmlContent = `
   <!-- Navigation -->
   <div class="tabs-to-dropdown mb-5">
     <div class="nav-wrapper d-flex justify-content-between">
@@ -38,7 +43,7 @@ document.querySelector('#app').innerHTML = `
       <div class="dropdown">
         <ul class="nav nav-pills d-flex d-md-none">
           <button class="btn dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-            <img id="menu-spin" src="/src/assets/menu.png" height="40" alt="Menu">
+            <img id="menu-spin" src="` + menuIcon + `" height="40" alt="Menu">
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li><a class="dropdown-item" href="#main">Главная</a></li>
@@ -59,7 +64,7 @@ document.querySelector('#app').innerHTML = `
       <div class="d-none d-lg-block col"></div>
       <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center">
         <div class="imgdiv">
-          <img class="img img-fluid" src="/src/assets/danilMain.png" alt="Danil Kulyaev">
+          <img class="img img-fluid" src="` + danilMainImg + `" alt="Danil Kulyaev">
         </div>
       </div>
       <div class="col-12 col-md-6 col-lg-4 danildesc">
@@ -131,7 +136,7 @@ document.querySelector('#app').innerHTML = `
                 <div class="card-body">
                   <h5 class="card-title d-flex align-items-center">
                     Дебат Арена
-                    <img src="/src/assets/vk-icon.svg" width="20" height="20" alt="VK" class="ms-2">
+                    <img src="/vk-icon.svg" width="20" height="20" alt="VK" class="ms-2">
                   </h5>
                   <p class="card-text">Мини-приложение в VK Mini Apps для дебатов 1 на 1. Игроки выбирают темы, аргументируют позиции и голосуют за победителя.</p>
                   <div class="project-tech mb-3">
@@ -176,12 +181,14 @@ document.querySelector('#app').innerHTML = `
       </div>
       <div>
         <a href="https://vk.com/dkulyaev" class="me-3 text-decoration-none" target="_blank" title="VK">
-          <img src="/src/assets/vk.svg" width="28" height="28" alt="VK">
+          <img src="/vk.svg" width="28" height="28" alt="VK">
         </a>
         <a href="https://t.me/diflymer" class="me-3 text-decoration-none" target="_blank" title="Telegram">
-          <img src="/src/assets/telegram.svg" width="28" height="28" alt="Telegram" style="filter: brightness(0) invert(1);">
+          <img src="/telegram.svg" width="28" height="28" alt="Telegram" style="filter: brightness(0) invert(1);">
         </a>
       </div>
     </section>
   </footer>
-`
+`;
+
+document.querySelector('#app').innerHTML = htmlContent;
