@@ -6,6 +6,9 @@ import danilMainImg from './assets/danilMain.png'
 
 // Smooth scrolling for navigation links
 document.addEventListener('DOMContentLoaded', function() {
+  // Initialize Varioqub flags
+  initVarioqubFlags();
+
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       e.preventDefault();
@@ -20,11 +23,38 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// Create HTML content with imported assets
-const htmlContent = `
+// Varioqub flag integration
+let isHeaderLinks = false;
+
+// Function to initialize Varioqub flags
+function initVarioqubFlags() {
+  if (typeof ymab !== 'undefined') {
+    ymab('metrika.104644323', 'getFlags', function(flags) {
+      isHeaderLinks = flags.isHeaderLinks || false;
+      renderHeader();
+    });
+  } else {
+    // Fallback if Varioqub is not loaded
+    setTimeout(initVarioqubFlags, 100);
+  }
+}
+
+// Function to render header with or without social links
+function renderHeader() {
+  const headerSocialLinks = isHeaderLinks ? `
+      <div class="d-none d-md-flex align-items-center">
+        <a href="https://vk.com/dkulyaev" class="text-decoration-none me-2" target="_blank" title="VK">
+          <img src="/vk.svg" width="24" height="24" alt="VK">
+        </a>
+        <a href="https://t.me/diflymer" class="text-decoration-none" target="_blank" title="Telegram">
+          <img src="/telegram.svg" width="24" height="24" alt="Telegram" style="filter: brightness(0) invert(1);">
+        </a>
+      </div>` : '';
+
+  const headerHTML = `
   <!-- Navigation -->
   <div class="tabs-to-dropdown mb-5">
-    <div class="nav-wrapper d-flex justify-content-between">
+    <div class="nav-wrapper d-flex justify-content-between align-items-center">
       <ul class="nav nav-pills d-none d-md-flex" id="pills-tab" role="tablist">
         <li class="nav-item" role="presentation">
           <a class="nav-link active" id="pills-company-tab" href="#main" role="tab" aria-controls="pills-company" aria-selected="true">Главная</a>
@@ -40,22 +70,36 @@ const htmlContent = `
         </li>
       </ul>
 
-      <div class="dropdown">
-        <ul class="nav nav-pills d-flex d-md-none">
-          <button class="btn dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-            <img id="menu-spin" src="` + menuIcon + `" height="40" alt="Menu">
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#main">Главная</a></li>
-            <li><a class="dropdown-item" href="#projects">Проекты</a></li>
-            <li><a class="dropdown-item link-danger disabled" href="#">Блоги</a></li>
-            <li><a class="dropdown-item link-danger disabled" href="#">Файлы</a></li>
+      <div class="d-flex align-items-center">
+        ${headerSocialLinks}
+
+        <div class="dropdown ms-3">
+          <ul class="nav nav-pills d-flex d-md-none">
+            <button class="btn dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              <img id="menu-spin" src="` + menuIcon + `" height="40" alt="Menu">
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="#main">Главная</a></li>
+              <li><a class="dropdown-item" href="#projects">Проекты</a></li>
+              <li><a class="dropdown-item link-danger disabled" href="#">Блоги</a></li>
+              <li><a class="dropdown-item link-danger disabled" href="#">Файлы</a></li>
+            </ul>
           </ul>
-        </ul>
+        </div>
       </div>
 
     </div>
-  </div>
+  </div>`;
+
+  // Replace existing header or insert at the beginning
+  const existingHeader = document.querySelector('.tabs-to-dropdown');
+  if (existingHeader) {
+    existingHeader.outerHTML = headerHTML;
+  }
+}
+
+// Create HTML content with imported assets
+const htmlContent = `
 
   <!-- Main Content -->
   <div class="container-fluid">
@@ -191,4 +235,8 @@ const htmlContent = `
   </footer>
 `;
 
+// Insert main content
 document.querySelector('#app').innerHTML = htmlContent;
+
+// Initial render of header (will be updated when Varioqub flags are loaded)
+renderHeader();
